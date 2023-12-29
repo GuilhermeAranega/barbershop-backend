@@ -1,0 +1,22 @@
+{
+	"name": "backend-barbeiro",
+	"version": "1.22.21",
+	"main": "src/index.ts",
+	"license": "MIT",
+	"scripts": {
+		"start": "node src/index.ts",
+		"dev": "nodemon src/index.ts"
+	},
+	"dependencies": {
+		"@neondatabase/serverless": "^0.6.1",
+		"drizzle-orm": "^0.29.2",
+		"express": "^4.18.2",
+		"nodemon": "^3.0.2"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "1.4.1",
+		"drizzle-kit": "^0.20.9",
+		"typescript": "5.3.3"
+	},
+	"packageManager": "yarn@4.0.2"
+}
