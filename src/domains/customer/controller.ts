@@ -4,6 +4,7 @@ import { eq } from 'drizzle-orm';
 
 type ICustomer = typeof customer.$inferInsert;
 
+// Create a new customer
 const createNewCustomer = async (data: ICustomer) => {
 	try {
 		const { firstName, lastName, phone } = data;
@@ -36,6 +37,7 @@ const createNewCustomer = async (data: ICustomer) => {
 	}
 };
 
+// Get all customers (limit 10)
 const getCustomers = async () => {
 	try {
 		const customers = await db.select().from(customer).limit(10);
@@ -46,6 +48,7 @@ const getCustomers = async () => {
 	}
 };
 
+// Get customer by phone
 const getCustomerByPhone = async (phone: string) => {
 	try {
 		if (!phone) {
@@ -62,6 +65,7 @@ const getCustomerByPhone = async (phone: string) => {
 	}
 };
 
+// Delete customer by id
 const deleteCustomer = async (id: string) => {
 	try {
 		if (!id) {
