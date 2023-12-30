@@ -7,7 +7,7 @@ export const costumer = pgTable('costumer', {
 		.primaryKey(),
 	firstName: varchar('first_name', { length: 50 }),
 	lastName: varchar('last_name', { length: 50 }),
-	phone: varchar('phone', { length: 50 }).unique(),
+	phone: varchar('phone', { length: 50 }),
 });
 
 export default costumer;

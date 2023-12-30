@@ -1,9 +1,13 @@
-import express from "express";
+import express from 'express';
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
-	res.send("Server running");
+import customerRoutes from '../domains/customer/routes';
+
+router.use('/customer', customerRoutes);
+
+router.get('/', (req, res) => {
+	res.send('Server running');
 });
 
 export default router;
