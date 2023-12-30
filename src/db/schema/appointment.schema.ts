@@ -11,15 +11,9 @@ export const appointment = pgTable('appointment', {
 		.primaryKey(),
 	date: text('date'),
 	time: text('time'),
-	customer_id: text('customer_id').references(() => customer.id, {
-		onDelete: 'cascade',
-	}),
-	barber_id: text('barber_id').references(() => barber.id, {
-		onDelete: 'cascade',
-	}),
-	type_id: text('type_id').references(() => haircutType.id, {
-		onDelete: 'cascade',
-	}),
+	customer_id: text('customer_id').references(() => customer.id),
+	barber_id: text('barber_id').references(() => barber.id),
+	type_id: text('type_id').references(() => haircutType.id),
 });
 
 export default appointment;
