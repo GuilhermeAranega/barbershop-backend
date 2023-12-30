@@ -8,37 +8,53 @@ import {
 const router = express.Router();
 
 router.post('/', async (req, res) => {
-	const { firstName, lastName, phone } = req.body;
+	try {
+		const { firstName, lastName, phone } = req.body;
 
-	const newCustomer = await createNewCustomer({
-		firstName,
-		lastName,
-		phone,
-	});
+		const newCustomer = await createNewCustomer({
+			firstName,
+			lastName,
+			phone,
+		});
 
-	res.status(201).json(newCustomer);
+		res.status(201).json(newCustomer);
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
 });
 
 router.get('/', async (req, res) => {
-	const customers = await getCustomers();
+	try {
+		const customers = await getCustomers();
 
-	res.status(200).json(customers);
+		res.status(200).json(customers);
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
 });
 
 router.get('/:phone', async (req, res) => {
-	const { phone } = req.params;
+	try {
+		const { phone } = req.params;
 
-	const customer = await getCustomerByPhone(phone);
+		const customer = await getCustomerByPhone(phone);
 
-	res.status(200).json(customer);
+		res.status(200).json(customer);
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
 });
 
 router.delete('/:id', async (req, res) => {
-	const { id } = req.params;
+	try {
+		const { id } = req.params;
 
-	const deletedCustomer = await deleteCustomer(id);
+		const deletedCustomer = await deleteCustomer(id);
 
-	res.status(204).json(deletedCustomer);
+		res.status(204).json(deletedCustomer);
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
 });
 
 export default router;
