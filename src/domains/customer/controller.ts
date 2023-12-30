@@ -2,20 +2,24 @@ import customer from '../../db/schema/customer.schema';
 import db from '../../db/db';
 import { eq } from 'drizzle-orm';
 
-type NewCustomer = typeof customer.$inferInsert;
+type Customer = typeof customer.$inferInsert;
 
-const createNewCustomer = async (data: NewCustomer) => {
+const createNewCustomer = async (data: Customer) => {
 	try {
 		const { firstName, lastName, phone } = data;
 
 		// see if the customer already exists
+		if (!phone || !firstName || !lastName) {
+			throw new Error('All the fields are required');
+		}
+
 		const existingCustomer = await db
 			.select()
 			.from(customer)
 			.where(eq(customer.phone, phone));
 
 		if (existingCustomer) {
-			throw new Error('Customer already exists');
+			return existingCustomer;
 		}
 
 		const newCustomer = await db
@@ -45,6 +49,9 @@ const getCustomers = async () => {
 
 const getCustomerByPhone = async (phone: string) => {
 	try {
+		if (!phone) {
+			throw new Error('Phone number is required');
+		}
 		const customerByPhone = await db
 			.select()
 			.from(customer)
@@ -58,6 +65,9 @@ const getCustomerByPhone = async (phone: string) => {
 
 const deleteCustomer = async (id: string) => {
 	try {
+		if (!id) {
+			throw new Error('Id is required');
+		}
 		const deletedCustomer = await db
 			.delete(customer)
 			.where(eq(customer.id, id));
