@@ -3,7 +3,7 @@ import { pgTable, text } from 'drizzle-orm/pg-core';
 
 import customer from './customer.schema';
 import barber from './barber.schema';	
-import type from './type.schema';
+import type from './haircutType.schema';
 
 export const appointment = pgTable('appointment', {
     id: text('id').$defaultFn(() => createId()).primaryKey(),
