@@ -8,6 +8,13 @@
       "when": 1703898963804,
       "tag": "0000_bumpy_power_man",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1703908456087,
+      "tag": "0001_closed_black_cat",
+      "breakpoints": true
     }
   ]
 }
