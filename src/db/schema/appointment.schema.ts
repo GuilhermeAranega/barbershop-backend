@@ -3,7 +3,7 @@ import { pgTable, text } from 'drizzle-orm/pg-core';
 
 import customer from './customer.schema';
 import barber from './barber.schema';
-import type from './haircutType.schema';
+import haircutType from './haircutType.schema';
 
 export const appointment = pgTable('appointment', {
 	id: text('id')
@@ -17,7 +17,9 @@ export const appointment = pgTable('appointment', {
 	barber_id: text('barber_id').references(() => barber.id, {
 		onDelete: 'cascade',
 	}),
-	type_id: text('type_id').references(() => type.id, { onDelete: 'cascade' }),
+	type_id: text('type_id').references(() => haircutType.id, {
+		onDelete: 'cascade',
+	}),
 });
 
 export default appointment;

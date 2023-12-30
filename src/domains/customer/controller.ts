@@ -2,13 +2,12 @@ import customer from '../../db/schema/customer.schema';
 import db from '../../db/db';
 import { eq } from 'drizzle-orm';
 
-type Customer = typeof customer.$inferInsert;
+type ICustomer = typeof customer.$inferInsert;
 
-const createNewCustomer = async (data: Customer) => {
+const createNewCustomer = async (data: ICustomer) => {
 	try {
 		const { firstName, lastName, phone } = data;
 
-		// see if the customer already exists
 		if (!phone || !firstName || !lastName) {
 			throw new Error('All the fields are required');
 		}
@@ -18,7 +17,7 @@ const createNewCustomer = async (data: Customer) => {
 			.from(customer)
 			.where(eq(customer.phone, phone));
 
-		if (existingCustomer) {
+		if (existingCustomer.length > 0) {
 			return existingCustomer;
 		}
 
