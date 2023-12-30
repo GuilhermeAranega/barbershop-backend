@@ -1,4 +1,4 @@
-import customer from './model';
+import customer from '../../db/schema/customer.schema';
 import db from '../../db/db';
 import { eq } from 'drizzle-orm';
 
@@ -7,6 +7,16 @@ type NewCustomer = typeof customer.$inferInsert;
 const createNewCustomer = async (data: NewCustomer) => {
 	try {
 		const { firstName, lastName, phone } = data;
+
+		// see if the customer already exists
+		const existingCustomer = await db
+			.select()
+			.from(customer)
+			.where(eq(customer.phone, phone));
+
+		if (existingCustomer) {
+			throw new Error('Customer already exists');
+		}
 
 		const newCustomer = await db
 			.insert(customer)
