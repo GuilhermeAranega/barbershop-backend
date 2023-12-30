@@ -11,53 +11,74 @@ const router = express.Router();
 
 // Create a new barber
 router.post('/', async (req, res) => {
-	const { firstName, lastName, phone } = req.body;
+	try {
+		const { firstName, lastName, phone } = req.body;
 
-	const newBarber = await createNewBarber({
-		firstName,
-		lastName,
-		phone,
-	});
+		const newBarber = await createNewBarber({
+			firstName,
+			lastName,
+			phone,
+		});
 
-	res.status(201).json(newBarber);
+		res.status(201).json(newBarber);
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
 });
 
 // Get all barbers (limit 10)
 router.get('/', async (req, res) => {
-	const barbers = await getBarbers();
+	try {
+		const barbers = await getBarbers();
 
-	res.status(200).json(barbers);
+		res.status(200).json(barbers);
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
 });
 
 // Get barber by first name
 router.get('/:firstName', async (req, res) => {
-	const { firstName } = req.params;
+	try {
+		const { firstName } = req.params;
 
-	const barberByName = await getBarberByName(firstName);
+		const barberByName = await getBarberByName(firstName);
 
-	res.status(200).json(barberByName);
+		res.status(200).json(barberByName);
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
 });
 
 // Delete barber by id
 router.delete('/:id', async (req, res) => {
-	const { id } = req.params;
+	try {
+		const { id } = req.params;
 
-	const deletedBarber = await deleteBarber(id);
+		const deletedBarber = await deleteBarber(id);
 
-	res.status(200).json(deletedBarber);
+		res.status(200).json(deletedBarber);
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
 });
 
 // Update barber by id
 router.put('/:id', async (req, res) => {
-	const { id } = req.params;
-	const { firstName, lastName, phone } = req.body;
+	try {
+		const { id } = req.params;
+		const { firstName, lastName, phone } = req.body;
 
-	const updatedBarber = await updateBarber(id, {
-		firstName,
-		lastName,
-		phone,
-	});
+		const updatedBarber = await updateBarber(id, {
+			firstName,
+			lastName,
+			phone,
+		});
 
-	res.status(200).json(updatedBarber);
+		res.status(200).json(updatedBarber);
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
 });
+
 export default router;
