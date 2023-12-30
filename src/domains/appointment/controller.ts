@@ -67,8 +67,7 @@ const getAppointmentByDate = async (date: string) => {
 const deleteAppointment = async (id: string) => {
 	try {
 		const deletedAppointment = await db
-			.delete()
-			.from(appointment)
+			.delete(appointment)
 			.where(eq(appointment.id, id));
 
 		return deletedAppointment;
