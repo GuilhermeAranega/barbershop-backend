@@ -22,7 +22,7 @@ router.post('/', async (req, res) => {
 
 		res.status(201).json(newBarber);
 	} catch (error) {
-		res.status(500).json({ error: error.message });
+		res.status(500).json({ error });
 	}
 });
 
@@ -33,7 +33,7 @@ router.get('/', async (req, res) => {
 
 		res.status(200).json(barbers);
 	} catch (error) {
-		res.status(500).json({ error: error.message });
+		res.status(500).json({ error });
 	}
 });
 
@@ -46,7 +46,7 @@ router.get('/:firstName', async (req, res) => {
 
 		res.status(200).json(barberByName);
 	} catch (error) {
-		res.status(500).json({ error: error.message });
+		res.status(500).json({ error });
 	}
 });
 
@@ -59,7 +59,7 @@ router.delete('/:id', async (req, res) => {
 
 		res.status(200).json(deletedBarber);
 	} catch (error) {
-		res.status(500).json({ error: error.message });
+		res.status(500).json({ error });
 	}
 });
 
@@ -77,7 +77,7 @@ router.put('/:id', async (req, res) => {
 
 		res.status(200).json(updatedBarber);
 	} catch (error) {
-		res.status(500).json({ error: error.message });
+		res.status(500).json({ error });
 	}
 });
 
