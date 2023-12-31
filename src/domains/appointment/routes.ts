@@ -62,7 +62,7 @@ router.delete('/:id', async (req, res) => {
 
 		const deletedAppointment = await deleteAppointment(id);
 
-		res.status(200).json(deletedAppointment);
+		res.status(204).json(deletedAppointment);
 	} catch (error) {
 		res.status(500).json({ error });
 	}
