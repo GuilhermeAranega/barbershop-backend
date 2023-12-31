@@ -1,10 +1,15 @@
 import appointment from '../../db/schema/appointment.schema';
+import customer from '../../db/schema/customer.schema';
+import barber from '../../db/schema/barber.schema';
+import haircutType from '../../db/schema/haircutType.schema';
+
 import db from '../../db/db';
 import { eq, or } from 'drizzle-orm';
 
 type IAppointment = typeof appointment.$inferInsert;
 
 // Create a new appointment
+// ! Erro: multiplas queries na mesma função, overloaded
 const createNewAppointment = async (data: IAppointment) => {
 	try {
 		const { date, time, customer_id, barber_id, type_id } = data;
@@ -25,7 +30,11 @@ const createNewAppointment = async (data: IAppointment) => {
 		const newAppointment = await db
 			.insert(appointment)
 			.values({
-				...data,
+				date,
+				time,
+				barber_id,
+				customer_id,
+				type_id,
 			})
 			.returning();
 
