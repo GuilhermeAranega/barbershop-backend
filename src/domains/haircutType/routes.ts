@@ -42,7 +42,7 @@ router.get('/:title', async (req, res) => {
 
 		res.json(haircutTypeByTitle);
 	} catch (error) {
-		res.status(500).json({ error });
+		res.status(400).json({ error });
 	}
 });
 
@@ -54,7 +54,7 @@ router.delete('/:id', async (req, res) => {
 
 		res.status(204).json(deletedHaircutType);
 	} catch (error) {
-		res.status(500).json({ error });
+		res.status(400).json({ error });
 	}
 });
 
@@ -71,7 +71,7 @@ router.put('/:id', async (req, res) => {
 
 		res.status(204).json(updatedHaircutType);
 	} catch (error) {
-		res.status(500).json({ error });
+		res.status(400).json({ error });
 	}
 });
 

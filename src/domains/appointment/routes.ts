@@ -51,7 +51,7 @@ router.get('/:date', async (req, res) => {
 
 		res.status(200).json(appointmentByDate);
 	} catch (error) {
-		res.status(500).json({ error });
+		res.status(400).json({ error });
 	}
 });
 
@@ -64,7 +64,7 @@ router.delete('/:id', async (req, res) => {
 
 		res.status(204).json(deletedAppointment);
 	} catch (error) {
-		res.status(500).json({ error });
+		res.status(400).json({ error });
 	}
 });
 
@@ -84,7 +84,7 @@ router.put('/:id', async (req, res) => {
 
 		res.status(200).json(updatedAppointment);
 	} catch (error) {
-		res.status(500).json({ error });
+		res.status(400).json({ error });
 	}
 });
 
@@ -97,7 +97,7 @@ router.get('/barber/:barber_id', async (req, res) => {
 
 		res.status(200).json(appointmentsByBarberId);
 	} catch (error) {
-		res.status(500).json({ error });
+		res.status(400).json({ error });
 	}
 });
 
@@ -111,7 +111,7 @@ router.get('/customer/:customer_id', async (req, res) => {
 
 		res.status(200).json(appointmentsByCustomerId);
 	} catch (error) {
-		res.status(500).json({ error });
+		res.status(400).json({ error });
 	}
 });
 
@@ -124,7 +124,7 @@ router.get('/type/:type_id', async (req, res) => {
 
 		res.status(200).json(appointmentsByTypeId);
 	} catch (error) {
-		res.status(500).json({ error });
+		res.status(400).json({ error });
 	}
 });
 

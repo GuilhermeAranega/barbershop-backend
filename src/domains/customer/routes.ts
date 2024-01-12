@@ -41,7 +41,7 @@ router.get('/:phone', async (req, res) => {
 
 		res.status(200).json(customer);
 	} catch (error) {
-		res.status(500).json({ error });
+		res.status(400).json({ error });
 	}
 });
 
@@ -53,7 +53,7 @@ router.delete('/:id', async (req, res) => {
 
 		res.status(204).json(deletedCustomer);
 	} catch (error) {
-		res.status(500).json({ error });
+		res.status(400).json({ error });
 	}
 });
 

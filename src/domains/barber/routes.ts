@@ -13,7 +13,7 @@ const router = express.Router();
 router.post('/', async (req, res) => {
 	try {
 		const { firstName, lastName, phone } = req.body;
-
+		console.log(req.body);
 		const newBarber = await createNewBarber({
 			firstName,
 			lastName,
@@ -46,7 +46,7 @@ router.get('/:firstName', async (req, res) => {
 
 		res.status(200).json(barberByName);
 	} catch (error) {
-		res.status(500).json({ error });
+		res.status(400).json({ error });
 	}
 });
 
@@ -59,7 +59,7 @@ router.delete('/:id', async (req, res) => {
 
 		res.status(200).json(deletedBarber);
 	} catch (error) {
-		res.status(500).json({ error });
+		res.status(400).json({ error });
 	}
 });
 
@@ -77,7 +77,7 @@ router.put('/:id', async (req, res) => {
 
 		res.status(200).json(updatedBarber);
 	} catch (error) {
-		res.status(500).json({ error });
+		res.status(400).json({ error });
 	}
 });
 
