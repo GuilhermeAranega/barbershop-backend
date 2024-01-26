@@ -1,7 +1,7 @@
 import appointment from '../../db/schema/appointment.schema';
 
 import db from '../../db/db';
-import { eq, or } from 'drizzle-orm';
+import { eq, and } from 'drizzle-orm';
 
 type IAppointment = typeof appointment.$inferInsert;
 
@@ -17,7 +17,7 @@ const createNewAppointment = async (data: IAppointment) => {
 		const existingAppointment = await db
 			.select()
 			.from(appointment)
-			.where(or(eq(appointment.date, date), eq(appointment.time, time)));
+			.where(and(eq(appointment.date, date), eq(appointment.time, time)));
 
 		if (existingAppointment.length > 0) {
 			throw new Error('Appointment already exists');
@@ -152,6 +152,48 @@ const getAppointmentsByTypeId = async (type_id: string) => {
 	}
 };
 
+declare global {
+	interface Date {
+		addDays(days: number): Date;
+	}
+}
+
+// Get the next 30 available dates
+const getAvailableDates = async () => {
+	try {
+		Date.prototype.addDays = function (days) {
+			const date = new Date(this.valueOf());
+			date.setDate(date.getDate() + days);
+			return date;
+		};
+
+		function formatDate(date: Date): string {
+			const year = date.getFullYear();
+			const month = String(date.getMonth() + 1).padStart(2, '0');
+			const day = String(date.getDate()).padStart(2, '0');
+			return `${year}-${month}-${day}`;
+		}
+
+		function getDates(startDate: Date, stopDate: Date) {
+			const dateArray: string[] = [];
+			let currentDate = startDate;
+			while (currentDate <= stopDate) {
+				if (currentDate.getDay() !== 0) {
+					dateArray.push(formatDate(currentDate));
+				}
+				currentDate = currentDate.addDays(1);
+			}
+			return dateArray;
+		}
+
+		const dates = getDates(new Date(), new Date().addDays(30));
+
+		return dates;
+	} catch (error) {
+		throw error;
+	}
+};
+
 export {
 	createNewAppointment,
 	getAppointments,
@@ -161,4 +203,5 @@ export {
 	getAppointmentsByBarberId,
 	getAppointmentsByCustomerId,
 	getAppointmentsByTypeId,
+	getAvailableDates,
 };
