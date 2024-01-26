@@ -7,10 +7,54 @@ import {
 	getAppointmentsByBarberId,
 	getAppointmentsByCustomerId,
 	getAppointmentsByTypeId,
+	getAvailableDates,
 	updateAppointment,
 } from './controller';
 
 const router = express.Router();
+
+// Get the next 30 available dates
+router.get('/getDates', async (req, res) => {
+	try {
+		const availableDates = await getAvailableDates();
+
+		res.status(200).json(availableDates);
+	} catch (error) {
+		res.status(400).json({ error });
+	}
+});
+
+// Get the next time slots available for a specific date
+router.get('/getTimes/:date', async (req, res) => {
+	try {
+		const { date } = req.params;
+
+		const appointmentsByDate = await getAppointmentByDate(date);
+		const bookedTimes = appointmentsByDate.map(
+			(appointment) => appointment.time,
+		);
+
+		const availableTimes = [
+			'10h00',
+			'10h40',
+			'11h20',
+			'12h00',
+			'12h40',
+			'13h20',
+			'14h00',
+			'14h40',
+			'15h20',
+			'16h00',
+			'16h40',
+			'17h20',
+			'18h00',
+		].filter((time) => !bookedTimes.includes(time));
+
+		res.status(200).json(availableTimes);
+	} catch (error) {
+		res.status(400).json({ error });
+	}
+});
 
 // Create a new appointment
 router.post('/', async (req, res) => {
@@ -27,6 +71,7 @@ router.post('/', async (req, res) => {
 
 		res.status(201).json(newAppointment);
 	} catch (error) {
+		console.log(error);
 		res.status(500).json({ error });
 	}
 });
