@@ -10,7 +10,7 @@ const createNewCustomer = async (data: ICustomer) => {
 		const { firstName, lastName, phone } = data;
 
 		if (!phone || !firstName || !lastName) {
-			throw new Error('All the fields are required');
+			throw new Error('Todos os campos são obrigatórios');
 		}
 
 		const existingCustomer = await db
@@ -52,7 +52,7 @@ const getCustomers = async () => {
 const getCustomerByPhone = async (phone: string) => {
 	try {
 		if (!phone) {
-			throw new Error('Phone number is required');
+			throw new Error('O número de telefone é obrigatório');
 		}
 		const customerByPhone = await db
 			.select()
@@ -69,7 +69,7 @@ const getCustomerByPhone = async (phone: string) => {
 const deleteCustomer = async (id: string) => {
 	try {
 		if (!id) {
-			throw new Error('Id is required');
+			throw new Error('O id é obrigatório');
 		}
 		const deletedCustomer = await db
 			.delete(customer)

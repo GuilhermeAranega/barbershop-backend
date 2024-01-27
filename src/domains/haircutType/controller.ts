@@ -9,7 +9,7 @@ const createNewHaircutType = async (data: IHaircutType) => {
 		const { title, price, gender } = data;
 
 		if (!title || !price || !gender) {
-			throw new Error('All the fields are required');
+			throw new Error('Todos os campos são obrigatórios');
 		}
 
 		const existingHaircutType = await db
@@ -18,7 +18,7 @@ const createNewHaircutType = async (data: IHaircutType) => {
 			.where(eq(haircutType.title, title));
 
 		if (existingHaircutType.length > 0) {
-			throw new Error('Haircut type already exists');
+			throw new Error('O tipo de corte já existe');
 		}
 
 		const newHaircutType = await db
@@ -47,7 +47,7 @@ const getHaircutTypes = async () => {
 const getHaircutTypeByTitle = async (title: string) => {
 	try {
 		if (!title) {
-			throw new Error('Title is required');
+			throw new Error('O título é obrigatório');
 		}
 		const haircutTypeByTitle = await db
 			.select()
@@ -63,7 +63,7 @@ const getHaircutTypeByTitle = async (title: string) => {
 const deleteHaircutType = async (id: string) => {
 	try {
 		if (!id) {
-			throw new Error('Id is required');
+			throw new Error('O id é obrigatório');
 		}
 
 		const deletedHaircutType = await db
@@ -79,7 +79,7 @@ const deleteHaircutType = async (id: string) => {
 const updateHaircutType = async (id: string, data: IHaircutType) => {
 	try {
 		if (!id) {
-			throw new Error('Id is required');
+			throw new Error('O id é obrigatório');
 		}
 
 		const updatedHaircutType = await db

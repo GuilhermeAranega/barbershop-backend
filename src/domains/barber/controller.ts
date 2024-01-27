@@ -9,7 +9,7 @@ const createNewBarber = async (data: IBarber) => {
 		const { firstName, lastName, phone } = data;
 
 		if (!phone || !firstName || !lastName) {
-			throw new Error('All the fields are required');
+			throw new Error('Todos os campos são obrigatórios');
 		}
 
 		const existingBarber = await db
@@ -47,7 +47,7 @@ const getBarbers = async () => {
 const getBarberByName = async (firstName: string) => {
 	try {
 		if (!firstName) {
-			throw new Error('First name is required');
+			throw new Error('O primeiro nome é obrigatório');
 		}
 		const barbersByName = await db
 			.select()
@@ -63,7 +63,7 @@ const getBarberByName = async (firstName: string) => {
 const deleteBarber = async (id: string) => {
 	try {
 		if (!id) {
-			throw new Error('ID is required');
+			throw new Error('O id é obrigatório');
 		}
 
 		const deletedBarber = await db.delete(barber).where(eq(barber.id, id));
@@ -77,7 +77,7 @@ const deleteBarber = async (id: string) => {
 const updateBarber = async (id: string, data: IBarber) => {
 	try {
 		if (!id) {
-			throw new Error('ID is required');
+			throw new Error('O id é obrigatório');
 		}
 
 		const updatedBarber = await db

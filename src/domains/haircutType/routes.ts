@@ -19,8 +19,8 @@ router.post('/', async (req, res) => {
 		});
 
 		res.status(201).json(newHaircutType);
-	} catch (error) {
-		res.status(500).json({ error });
+	} catch (error: any) {
+		res.status(400).json(error.message);
 	}
 });
 
@@ -29,8 +29,8 @@ router.get('/', async (req, res) => {
 		const haircutTypes = await getHaircutTypes();
 
 		res.json(haircutTypes);
-	} catch (error) {
-		res.status(500).json({ error });
+	} catch (error: any) {
+		res.status(400).json(error.message);
 	}
 });
 
@@ -41,8 +41,8 @@ router.get('/:title', async (req, res) => {
 		const haircutTypeByTitle = await getHaircutTypeByTitle(title);
 
 		res.json(haircutTypeByTitle);
-	} catch (error) {
-		res.status(400).json({ error });
+	} catch (error: any) {
+		res.status(400).json(error.message);
 	}
 });
 
@@ -53,8 +53,8 @@ router.delete('/:id', async (req, res) => {
 		const deletedHaircutType = await deleteHaircutType(id);
 
 		res.status(204).json(deletedHaircutType);
-	} catch (error) {
-		res.status(400).json({ error });
+	} catch (error: any) {
+		res.status(400).json(error.message);
 	}
 });
 
@@ -70,8 +70,8 @@ router.put('/:id', async (req, res) => {
 		});
 
 		res.status(204).json(updatedHaircutType);
-	} catch (error) {
-		res.status(400).json({ error });
+	} catch (error: any) {
+		res.status(400).json(error.message);
 	}
 });
 

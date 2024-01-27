@@ -21,8 +21,8 @@ router.post('/', async (req, res) => {
 		});
 
 		res.status(201).json(newBarber);
-	} catch (error) {
-		res.status(500).json({ error });
+	} catch (error: any) {
+		res.status(400).json(error.message);
 	}
 });
 
@@ -32,8 +32,8 @@ router.get('/', async (req, res) => {
 		const barbers = await getBarbers();
 
 		res.status(200).json(barbers);
-	} catch (error) {
-		res.status(500).json({ error });
+	} catch (error: any) {
+		res.status(400).json(error.message);
 	}
 });
 
@@ -45,8 +45,8 @@ router.get('/:firstName', async (req, res) => {
 		const barberByName = await getBarberByName(firstName);
 
 		res.status(200).json(barberByName);
-	} catch (error) {
-		res.status(400).json({ error });
+	} catch (error: any) {
+		res.status(400).json(error.message);
 	}
 });
 
@@ -58,8 +58,8 @@ router.delete('/:id', async (req, res) => {
 		const deletedBarber = await deleteBarber(id);
 
 		res.status(200).json(deletedBarber);
-	} catch (error) {
-		res.status(400).json({ error });
+	} catch (error: any) {
+		res.status(400).json(error.message);
 	}
 });
 
@@ -76,8 +76,8 @@ router.put('/:id', async (req, res) => {
 		});
 
 		res.status(200).json(updatedBarber);
-	} catch (error) {
-		res.status(400).json({ error });
+	} catch (error: any) {
+		res.status(400).json(error.message);
 	}
 });
 

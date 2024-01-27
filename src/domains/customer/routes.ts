@@ -18,8 +18,8 @@ router.post('/', async (req, res) => {
 		});
 
 		res.status(201).json(newCustomer);
-	} catch (error) {
-		res.status(500).json({ error });
+	} catch (error: any) {
+		res.status(400).json(error.message);
 	}
 });
 
@@ -28,8 +28,8 @@ router.get('/', async (req, res) => {
 		const customers = await getCustomers();
 
 		res.status(200).json(customers);
-	} catch (error) {
-		res.status(500).json({ error });
+	} catch (error: any) {
+		res.status(400).json(error.message);
 	}
 });
 
@@ -40,8 +40,8 @@ router.get('/:phone', async (req, res) => {
 		const customer = await getCustomerByPhone(phone);
 
 		res.status(200).json(customer);
-	} catch (error) {
-		res.status(400).json({ error });
+	} catch (error: any) {
+		res.status(400).json(error.message);
 	}
 });
 
@@ -52,8 +52,8 @@ router.delete('/:id', async (req, res) => {
 		const deletedCustomer = await deleteCustomer(id);
 
 		res.status(204).json(deletedCustomer);
-	} catch (error) {
-		res.status(400).json({ error });
+	} catch (error: any) {
+		res.status(400).json(error.message);
 	}
 });
 

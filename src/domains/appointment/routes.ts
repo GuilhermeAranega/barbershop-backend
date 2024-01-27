@@ -19,7 +19,7 @@ router.get('/getDates', async (req, res) => {
 		const availableDates = await getAvailableDates();
 
 		res.status(200).json(availableDates);
-	} catch (error: string | any) {
+	} catch (error: any) {
 		res.status(400).json(error.message);
 	}
 });
@@ -51,7 +51,7 @@ router.get('/getTimes/:date', async (req, res) => {
 		].filter((time) => !bookedTimes.includes(time));
 
 		res.status(200).json(availableTimes);
-	} catch (error: string | any) {
+	} catch (error: any) {
 		res.status(400).json(error.message);
 	}
 });
@@ -70,7 +70,7 @@ router.post('/', async (req, res) => {
 		});
 
 		res.status(201).json(newAppointment);
-	} catch (error: string | any) {
+	} catch (error: any) {
 		res.status(400).json(error.message);
 	}
 });
@@ -81,7 +81,7 @@ router.get('/', async (req, res) => {
 		const appointments = await getAppointments();
 
 		res.status(200).json(appointments);
-	} catch (error: string | any) {
+	} catch (error: any) {
 		res.status(400).json(error.message);
 	}
 });
@@ -94,7 +94,7 @@ router.get('/:date', async (req, res) => {
 		const appointmentByDate = await getAppointmentByDate(date);
 
 		res.status(200).json(appointmentByDate);
-	} catch (error: string | any) {
+	} catch (error: any) {
 		res.status(400).json(error.message);
 	}
 });
@@ -107,7 +107,7 @@ router.delete('/:id', async (req, res) => {
 		const deletedAppointment = await deleteAppointment(id);
 
 		res.status(204).json(deletedAppointment);
-	} catch (error: string | any) {
+	} catch (error: any) {
 		res.status(400).json(error.message);
 	}
 });
@@ -127,7 +127,7 @@ router.put('/:id', async (req, res) => {
 		});
 
 		res.status(200).json(updatedAppointment);
-	} catch (error: string | any) {
+	} catch (error: any) {
 		res.status(400).json(error.message);
 	}
 });
@@ -140,7 +140,7 @@ router.get('/barber/:barber_id', async (req, res) => {
 		const appointmentsByBarberId = await getAppointmentsByBarberId(barber_id);
 
 		res.status(200).json(appointmentsByBarberId);
-	} catch (error: string | any) {
+	} catch (error: any) {
 		res.status(400).json(error.message);
 	}
 });
@@ -154,7 +154,7 @@ router.get('/customer/:customer_id', async (req, res) => {
 			await getAppointmentsByCustomerId(customer_id);
 
 		res.status(200).json(appointmentsByCustomerId);
-	} catch (error: string | any) {
+	} catch (error: any) {
 		res.status(400).json(error.message);
 	}
 });
@@ -167,7 +167,7 @@ router.get('/type/:type_id', async (req, res) => {
 		const appointmentsByTypeId = await getAppointmentsByTypeId(type_id);
 
 		res.status(200).json(appointmentsByTypeId);
-	} catch (error: string | any) {
+	} catch (error: any) {
 		res.status(400).json(error.message);
 	}
 });
