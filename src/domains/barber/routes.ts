@@ -13,7 +13,6 @@ const router = express.Router();
 router.post('/', async (req, res) => {
 	try {
 		const { firstName, lastName, phone } = req.body;
-		console.log(req.body);
 		const newBarber = await createNewBarber({
 			firstName,
 			lastName,

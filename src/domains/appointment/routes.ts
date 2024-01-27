@@ -34,21 +34,25 @@ router.get('/getTimes/:date', async (req, res) => {
 			(appointment) => appointment.time,
 		);
 
-		const availableTimes = [
-			'10h00',
-			'10h40',
-			'11h20',
-			'12h00',
-			'12h40',
-			'13h20',
-			'14h00',
-			'14h40',
-			'15h20',
-			'16h00',
-			'16h40',
-			'17h20',
-			'18h00',
-		].filter((time) => !bookedTimes.includes(time));
+		const allTimes = [
+			'10:00',
+			'10:40',
+			'11:20',
+			'12:00',
+			'12:40',
+			'13:20',
+			'14:00',
+			'14:40',
+			'15:20',
+			'16:00',
+			'16:40',
+			'17:20',
+			'18:00',
+		];
+
+		const availableTimes = allTimes.filter(
+			(time) => !bookedTimes.includes(time),
+		);
 
 		res.status(200).json(availableTimes);
 	} catch (error: any) {
