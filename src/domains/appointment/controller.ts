@@ -11,7 +11,7 @@ const createNewAppointment = async (data: IAppointment) => {
 		const { date, time, customer_id, barber_id, type_id } = data;
 
 		if (!date || !time || !customer_id || !barber_id || !type_id) {
-			throw new Error('All the fields are required');
+			throw new Error('Todos os campos são obrigatórios');
 		}
 
 		const dateObj = new Date();
