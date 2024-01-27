@@ -14,13 +14,27 @@ const createNewAppointment = async (data: IAppointment) => {
 			throw new Error('All the fields are required');
 		}
 
+		const dateObj = new Date();
+		const hour = dateObj.getHours();
+		const min = dateObj.getMinutes();
+
+		const currentTime = `${hour}:${min}`;
+
+		if (time < '09:00' || time > '18:00') {
+			throw new Error('O horário deve ser entre 09:00 e 18:00');
+		}
+
+		if (time < currentTime) {
+			throw new Error('O horário tem que estar no futuro');
+		}
+
 		const existingAppointment = await db
 			.select()
 			.from(appointment)
 			.where(and(eq(appointment.date, date), eq(appointment.time, time)));
 
 		if (existingAppointment.length > 0) {
-			throw new Error('Appointment already exists');
+			throw new Error('O horário já está ocupado');
 		}
 
 		const newAppointment = await db
@@ -55,7 +69,7 @@ const getAppointments = async () => {
 const getAppointmentByDate = async (date: string) => {
 	try {
 		if (!date) {
-			throw new Error('Date is required');
+			throw new Error('A data é obrigatória');
 		}
 		const appointmentByDate = await db
 			.select()
@@ -85,7 +99,7 @@ const deleteAppointment = async (id: string) => {
 const updateAppointment = async (id: string, data: IAppointment) => {
 	try {
 		if (!id) {
-			throw new Error('Id is required');
+			throw new Error('O id é obrigatório');
 		}
 
 		const updatedAppointment = await db
@@ -105,7 +119,7 @@ const updateAppointment = async (id: string, data: IAppointment) => {
 const getAppointmentsByBarberId = async (barber_id: string) => {
 	try {
 		if (!barber_id) {
-			throw new Error('Barber id is required');
+			throw new Error('O id do barbeiro é obrigatório');
 		}
 		const appointmentsByBarberId = await db
 			.select()
@@ -122,7 +136,7 @@ const getAppointmentsByBarberId = async (barber_id: string) => {
 const getAppointmentsByCustomerId = async (customer_id: string) => {
 	try {
 		if (!customer_id) {
-			throw new Error('Customer id is required');
+			throw new Error('O id do cliente é obrigatório');
 		}
 		const appointmentsByCustomerId = await db
 			.select()
@@ -139,7 +153,7 @@ const getAppointmentsByCustomerId = async (customer_id: string) => {
 const getAppointmentsByTypeId = async (type_id: string) => {
 	try {
 		if (!type_id) {
-			throw new Error('Type id is required');
+			throw new Error('O id do tipo de corte é obrigatório');
 		}
 		const appointmentsByTypeId = await db
 			.select()
