@@ -17,6 +17,7 @@ const createNewAppointment = async (data: IAppointment) => {
 		const dateObj = new Date();
 		const hour = dateObj.getHours();
 		const min = dateObj.getMinutes();
+		const day = dateObj.getDate();
 
 		const currentTime = `${hour}:${min}`;
 
@@ -24,7 +25,7 @@ const createNewAppointment = async (data: IAppointment) => {
 			throw new Error('O horário deve ser entre 09:00 e 18:00');
 		}
 
-		if (time < currentTime) {
+		if (time < currentTime && date == day.toString()) {
 			throw new Error('O horário tem que estar no futuro');
 		}
 
