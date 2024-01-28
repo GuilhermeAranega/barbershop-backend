@@ -58,7 +58,7 @@ const createNewAppointment = async (data: IAppointment) => {
 // Get all appointments (limit 10)
 const getAppointments = async () => {
 	try {
-		const appointments = await db.select().from(appointment).limit(10);
+		const appointments = await db.select().from(appointment);
 
 		return appointments;
 	} catch (error) {

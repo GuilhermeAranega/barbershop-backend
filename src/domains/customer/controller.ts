@@ -65,6 +65,23 @@ const getCustomerByPhone = async (phone: string) => {
 	}
 };
 
+// Get customer by id
+const getCustomerById = async (id: string) => {
+	try {
+		if (!id) {
+			throw new Error('O id é obrigatório');
+		}
+		const customerById = await db
+			.select()
+			.from(customer)
+			.where(eq(customer.id, id));
+
+		return customerById;
+	} catch (error) {
+		throw error;
+	}
+};
+
 // Delete customer by id
 const deleteCustomer = async (id: string) => {
 	try {
@@ -81,4 +98,10 @@ const deleteCustomer = async (id: string) => {
 	}
 };
 
-export { getCustomers, createNewCustomer, getCustomerByPhone, deleteCustomer };
+export {
+	getCustomers,
+	createNewCustomer,
+	getCustomerByPhone,
+	deleteCustomer,
+	getCustomerById,
+};
