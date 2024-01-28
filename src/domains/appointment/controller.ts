@@ -63,7 +63,6 @@ const getAppointments = async () => {
 			.from(appointment)
 			.orderBy(desc(appointment.date));
 
-		console.log(appointments);
 		return appointments;
 	} catch (error) {
 		throw error;
