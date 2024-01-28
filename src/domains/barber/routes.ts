@@ -5,6 +5,7 @@ import {
 	getBarberByName,
 	deleteBarber,
 	updateBarber,
+	getBarberById,
 } from './controller';
 
 const router = express.Router();
@@ -37,7 +38,7 @@ router.get('/', async (req, res) => {
 });
 
 // Get barber by first name
-router.get('/:firstName', async (req, res) => {
+router.get('/name/:firstName', async (req, res) => {
 	try {
 		const { firstName } = req.params;
 
@@ -75,6 +76,19 @@ router.put('/:id', async (req, res) => {
 		});
 
 		res.status(200).json(updatedBarber);
+	} catch (error: any) {
+		res.status(400).json(error.message);
+	}
+});
+
+// Get barber by id
+router.get('/:id', async (req, res) => {
+	try {
+		const { id } = req.params;
+
+		const barberById = await getBarberById(id);
+
+		res.status(200).json(barberById);
 	} catch (error: any) {
 		res.status(400).json(error.message);
 	}

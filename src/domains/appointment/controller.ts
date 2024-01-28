@@ -1,7 +1,7 @@
 import appointment from '../../db/schema/appointment.schema';
 
 import db from '../../db/db';
-import { eq, and } from 'drizzle-orm';
+import { eq, and, desc } from 'drizzle-orm';
 
 type IAppointment = typeof appointment.$inferInsert;
 
@@ -55,11 +55,15 @@ const createNewAppointment = async (data: IAppointment) => {
 	}
 };
 
-// Get all appointments (limit 10)
+// Get all appointments
 const getAppointments = async () => {
 	try {
-		const appointments = await db.select().from(appointment);
+		const appointments = await db
+			.select()
+			.from(appointment)
+			.orderBy(desc(appointment.date));
 
+		console.log(appointments);
 		return appointments;
 	} catch (error) {
 		throw error;

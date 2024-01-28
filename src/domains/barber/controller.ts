@@ -44,6 +44,21 @@ const getBarbers = async () => {
 	}
 };
 
+// Get barber by id
+const getBarberById = async (id: string) => {
+	try {
+		if (!id) {
+			throw new Error('O id é obrigatório');
+		}
+
+		const b = await db.select().from(barber).where(eq(barber.id, id));
+
+		return b;
+	} catch (error) {
+		throw error;
+	}
+};
+
 const getBarberByName = async (firstName: string) => {
 	try {
 		if (!firstName) {
@@ -100,4 +115,5 @@ export {
 	getBarberByName,
 	deleteBarber,
 	updateBarber,
+	getBarberById,
 };
