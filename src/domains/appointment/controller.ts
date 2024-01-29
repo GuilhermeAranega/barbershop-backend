@@ -141,6 +141,15 @@ const updateAppointment = async (id: string, data: IAppointment) => {
 			throw new Error('O id é obrigatório');
 		}
 
+		const isAppointment = await db
+			.select()
+			.from(appointment)
+			.where(eq(appointment.id, id));
+
+		if (isAppointment.length === 0) {
+			throw new Error('O agendamento não existe');
+		}
+
 		const updatedAppointment = await db
 			.update(appointment)
 			.set({
