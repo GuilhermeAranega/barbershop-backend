@@ -9,6 +9,7 @@ import {
 	getAppointmentsByTypeId,
 	getAvailableDates,
 	updateAppointment,
+	getAppointmentByDateAndBarberId,
 } from './controller';
 
 const router = express.Router();
@@ -24,13 +25,16 @@ router.get('/getDates', async (req, res) => {
 	}
 });
 
-// Get the next time slots available for a specific date
-router.get('/getTimes/:date', async (req, res) => {
+// Get available times by date and barber
+router.get('/getTimes/:date/:barber_id', async (req, res) => {
 	try {
-		const { date } = req.params;
+		const { date, barber_id } = req.params;
 
-		const appointmentsByDate = await getAppointmentByDate(date);
-		const bookedTimes = appointmentsByDate.map(
+		const appointmentsByDateAndBarberId = await getAppointmentByDateAndBarberId(
+			date,
+			barber_id,
+		);
+		const bookedTimes = appointmentsByDateAndBarberId.map(
 			(appointment) => appointment.time,
 		);
 

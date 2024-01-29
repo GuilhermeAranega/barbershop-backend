@@ -86,9 +86,44 @@ const getAppointmentByDate = async (date: string) => {
 	}
 };
 
+// Get appointment by date and Barber id
+const getAppointmentByDateAndBarberId = async (
+	date: string,
+	barber_id: string,
+) => {
+	try {
+		if (!date) {
+			throw new Error('A data é obrigatória');
+		}
+		const appointmentByDate = await db
+			.select()
+			.from(appointment)
+			.where(
+				and(eq(appointment.date, date), eq(appointment.barber_id, barber_id)),
+			);
+
+		return appointmentByDate;
+	} catch (error) {
+		throw error;
+	}
+};
+
 // Delete an appointment
 const deleteAppointment = async (id: string) => {
 	try {
+		if (!id) {
+			throw new Error('O id é obrigatório');
+		}
+
+		const isAppointment = await db
+			.select()
+			.from(appointment)
+			.where(eq(appointment.id, id));
+
+		if (isAppointment.length === 0) {
+			throw new Error('O agendamento não existe');
+		}
+
 		const deletedAppointment = await db
 			.delete(appointment)
 			.where(eq(appointment.id, id));
@@ -222,4 +257,5 @@ export {
 	getAppointmentsByCustomerId,
 	getAppointmentsByTypeId,
 	getAvailableDates,
+	getAppointmentByDateAndBarberId,
 };
