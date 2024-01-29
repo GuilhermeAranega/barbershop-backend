@@ -98,10 +98,33 @@ const deleteCustomer = async (id: string) => {
 	}
 };
 
+const updateCustomer = async (id: string, data: ICustomer) => {
+	try {
+		if (!id) {
+			throw new Error('O id é obrigatório');
+		}
+		const { firstName, lastName, phone } = data;
+
+		const updatedCustomer = await db
+			.update(customer)
+			.set({
+				firstName,
+				lastName,
+				phone,
+			})
+			.where(eq(customer.id, id));
+
+		return updatedCustomer;
+	} catch (error) {
+		throw error;
+	}
+};
+
 export {
 	getCustomers,
 	createNewCustomer,
 	getCustomerByPhone,
 	deleteCustomer,
 	getCustomerById,
+	updateCustomer,
 };

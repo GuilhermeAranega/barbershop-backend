@@ -5,6 +5,7 @@ import {
 	getCustomerByPhone,
 	deleteCustomer,
 	getCustomerById,
+	updateCustomer,
 } from './controller';
 const router = express.Router();
 
@@ -42,6 +43,24 @@ router.get('/', async (req, res) => {
 		const customers = await getCustomers();
 
 		res.status(200).json(customers);
+	} catch (error: any) {
+		res.status(400).json(error.message);
+	}
+});
+
+// Update customer by id
+router.put('/:id', async (req, res) => {
+	try {
+		const { id } = req.params;
+		const { firstName, lastName, phone } = req.body;
+
+		const updatedCustomer = await updateCustomer(id, {
+			firstName,
+			lastName,
+			phone,
+		});
+
+		res.status(200).json(updatedCustomer);
 	} catch (error: any) {
 		res.status(400).json(error.message);
 	}
